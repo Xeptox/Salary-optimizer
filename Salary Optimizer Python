@@ -1,0 +1,64 @@
+import msvcrt
+from msvcrt import getch
+overpay_hours_25 = 0
+overpay_hours_50 = 0
+friday_hours_25 = 0
+friday_hours_50 = 0
+print("Введите колличество рабочих дней в месяце. Воспользуйтесь готовой таблицей для удобвства.")
+print()
+print("""
+	[20 дней это 168 часов]
+	[21 день это 176.5 часов]
+	[22 дня это 185 часов]
+	[23 дня это 193.5 часов]""")
+print("Строка для ввода")
+print()
+work_days = float(input())
+month_hours = 8.5 * work_days
+print("Введите желаемую по часовую оплату.")
+hour_pay = float(input())
+print("Сколько дополнительных часов хотите работать в сутки ?")
+overpay_hours = float(input())
+if 0 < overpay_hours <= 2:
+	overpay_hours_25 = overpay_hours
+if overpay_hours > 2:
+	overpay_hours_25 = 2
+	overpay_hours_50 = overpay_hours - overpay_hours_25
+print("Сколько часов хотите работать в пятницу?")
+friday_hours = float(input())
+if 0 > friday_hours <= 2:
+	friday_hours_25 = friday_hours
+if friday_hours > 2:
+	friday_hours_25 = 2
+	friday_hours_50 = friday_hours - friday_hours_25
+print("Сколько пятниц хотите работать в месяц?")
+howmuch_fridays = float(input())
+total_friday_hours = (friday_hours_25 + friday_hours_50) * howmuch_fridays
+standart_working_hours_pay = hour_pay * month_hours
+overpay_hours_25_pay = hour_pay * work_days * overpay_hours_25 * 1.25
+overpay_hours_50_pay = hour_pay * work_days * overpay_hours_50 * 1.5
+total_overpay_hours_pay = overpay_hours_25_pay + overpay_hours_50_pay
+friday_hours_25_pay = hour_pay*friday_hours_25 * 1.25 * howmuch_fridays
+friday_hours_50_pay = hour_pay*friday_hours_50 * 1.5 * howmuch_fridays
+total_friday_hours_pay = friday_hours_25_pay + friday_hours_50_pay
+total_month_pay = standart_working_hours_pay + total_overpay_hours_pay + total_friday_hours_pay
+overpay_hours_25_in_month = overpay_hours_25 * work_days
+overpay_hours_50_in_month = overpay_hours_50 * work_days
+total_hours = month_hours + overpay_hours_25_in_month + overpay_hours_50_in_month + total_friday_hours
+print("Месячная зарплата брутто: ", total_month_pay)
+print("Всего рабочих часов в месяц: ", total_hours)
+print()
+print("Колличество обычных часов за месяц: ", month_hours)
+print("Оплата стандартных часов: ", hour_pay * month_hours)
+print()
+print("Дополнительных часов по 125% оплаты: ", work_days*overpay_hours_25)
+print("Оплата дополнительных часов по 125% : ", hour_pay*work_days * overpay_hours_25 * 1.25)
+print()
+print("Колличество часов по 150% оплате: ", work_days*overpay_hours_50)
+print("Оплата дополнительных часов по 150% :", hour_pay * work_days*overpay_hours_50 * 1.5)
+print()
+print("Пятничных часов: ", friday_hours * howmuch_fridays)
+print("Оплата пятничных часов: ", friday_hours_25_pay + friday_hours_50_pay)
+key = msvcrt.getch()
+if key == b'\r':
+	sys.exit(n)
